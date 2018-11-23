@@ -11,7 +11,7 @@
 GtkWidget *widgetControleNivel;
 GtkWidget *widgetMisturarCanais;
 
-Imagem meuFiltro(Imagem origem);
+Imagem meuFiltro(Imagem origem, Imagem imagemFundo);
 void inicializarWidgetsMeuFiltro();
 void adicionarWidgetsMeuFiltro(GtkWidget *container);
 

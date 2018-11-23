@@ -16,39 +16,65 @@ void adicionarWidgetsMeuFiltro(GtkWidget *container) {
 	gtk_container_add(GTK_CONTAINER(vbox), widgetMisturarCanais);
 }
 
-Imagem meuFiltro(Imagem origem) {
-	int i, j;
-	Imagem destino = alocarImagem(origem);
-	int nivel = (int) gtk_range_get_value(GTK_RANGE(widgetControleNivel));
-	int ch1, ch2, ch3;
+Imagem meuFiltro(Imagem origem,Imagem imagemFundo) {
 
-	ch1 = 0;
-	ch2 = 1;
-	ch3 = 2;
-	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widgetMisturarCanais))) {
-		ch1 = rand()%3;
-		ch2 = (ch1+1+rand()%2)%3;
-		ch3 = 3 - ch2 - ch1;
-	}
+    if(img.h == imagemFundo.h && img.w == imagemFundo.w){
+    Imagem destino = alocarImagem(origem);
+	Imagem fundo = alocarImagem(imagemFundo);
+    //k e j variacoes do valor atribuido na imagem digital a cor deseja para o chorma key
+    k = 230;
+    j = 255;
+    for(int r = 0;r<10;r++){
+        for(int y = 0;y<10;y++){
+            for(int i = k;k<j;i++){
+                for(int a = 0;a<img.h;a++){
+                    for(int b = 0;b<img.w;b++){
+                        if(img.m[a][b][0] == y && img.m[a][b][1] == i && img.m[a][b][2] == r){
+                            img.m[a][b][0] = imagemFundo.m[a][b][0];
+                            img.m[a][b][1] = imagemFundo.m[a][b][1];
+                            img.m[a][b][2] = imagemFundo.m[a][b][2];
+                        }
+                    }
 
-	for(j = 0; j < destino.w; j++) {
-		for(i = 0; i < destino.h; i++) {
-			int x = j - nivel + rand()%(2*nivel+1);
-			int y = i - nivel + rand()%(2*nivel+1);
-			if(x < 0)
-				x = 0;
-			if(y < 0)
-				y = 0;
-			if(x >= destino.w)
-				x = destino.w - 1;
-			if(y >= destino.h)
-				y = destino.h - 1;
-			destino.m[i][j][0] = origem.m[y][x][ch1];
-			destino.m[i][j][1] = origem.m[y][x][ch2];
-			destino.m[i][j][2] = origem.m[y][x][ch3];
-		}
-	}
-	return destino;
+
+                }
+            }
+        }
+    }
 }
+
+
+
+
+if(img.h>imagemFundo.h && img.m>imagemFundo.m){
+     int e = imagemFundo.w;
+     int p = imagemFundo.h;
+    Imagem destino = alocarImagem(origem);
+    Imagem imagemFundo = alocarImagem(imagemFundo);
+    Imagem alocarImagemDimensao(e, p, 3);
+    k = 230;
+    j = 255;
+    for(int r = 0;r<10;r++){
+        for(int y = 0;y<10;y++){
+            for(int i = k;k<j;i++){
+                for(int a = 0;a<img.h;a++){
+                    for(int b = 0;b<img.w;b++){
+                        if(img.m[a][b][0] == y && img.m[a][b][1] == i && img.m[a][b][2] == r){
+                            img.m[a][b][0] = imagemFundo.m[a][b][0];
+                            img.m[a][b][1] = imagemFundo.m[a][b][1];
+                            img.m[a][b][2] = imagemFundo.m[a][b][2];
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+}
+
+
+
+
 
 
