@@ -5,7 +5,7 @@
 #include "imagem.h"
 #include "meufiltro.h"
 
-GtkWidget *window, *image;
+GtkWidget *window, *image, *imageFundo;
 GtkWidget *vbox, *hbox;
 GtkWidget *label1, *label2, *label3;
 char *nomeArquivo;
@@ -14,12 +14,12 @@ void printImagemInfo(Imagem img) {
 	printf("Imagem %d %d, ch %d\n", img.w, img.h, img.numCanais);
 }
 
-Imagem obterMatrizImagem() {
+Imagem obterMatrizImagem(GtkWidget *imgWidget) {
 	int i, j, ch, rowstride;
 	guchar ***m, *pixels, *p;
 	Imagem img;
 	
-	GdkPixbuf *buffer = gtk_image_get_pixbuf(GTK_IMAGE(image));
+	GdkPixbuf *buffer = gtk_image_get_pixbuf(GTK_IMAGE(imgWidget));
 	img.h = gdk_pixbuf_get_height(buffer);
 	img.w = gdk_pixbuf_get_width(buffer);
 	img.numCanais = gdk_pixbuf_get_n_channels(buffer);
@@ -57,7 +57,7 @@ void carregarImagem(GtkWidget *widget, gpointer data) {
 	gtk_widget_queue_draw(image);
 
 	gtk_label_set_text(GTK_LABEL(label1), "Imagem carregada");
-	original = obterMatrizImagem();
+	original = obterMatrizImagem(image);
 }
 
 void carregarImagemFundo(GtkWidget *widget, gpointer data) {
@@ -66,13 +66,11 @@ void carregarImagemFundo(GtkWidget *widget, gpointer data) {
 		nomeArquivo = gtk_file_chooser_get_filename( GTK_FILE_CHOOSER(dialog) );
 		gtk_widget_destroy(dialog);
 	}
-
-	gtk_image_set_from_file(GTK_IMAGE(image), nomeArquivo);
-
-	gtk_widget_queue_draw(image);
+	gtk_image_set_from_file(GTK_IMAGE(imageFundo), nomeArquivo);
 
 	gtk_label_set_text(GTK_LABEL(label1), "Imagem carregada");
-	imagemFundo = obterMatrizImagem();
+	imagemFundo = obterMatrizImagem(imageFundo);
+	printf("%d\n",imagemFundo.h);
 }
 
 void salvarImagem(GtkWidget *widget, gpointer data) {
@@ -210,6 +208,7 @@ int main(int argc, char **argv) {
 
 	//adiciona um widget imagem vazio
 	image = gtk_image_new();
+	imageFundo = gtk_image_new();
 
 	//adiciona os demais widgets no container vertical (vbox)
 	//a funcao gtk_box_pack_start eh similar a gtk_container_add
@@ -236,7 +235,7 @@ int main(int argc, char **argv) {
 			gtk_widget_queue_draw(image);
 	
 			gtk_label_set_text(GTK_LABEL(label1), "Imagem carregada");
-			original = obterMatrizImagem();
+			original = obterMatrizImagem(image);
 			fclose(arq);
 		}
 	}
