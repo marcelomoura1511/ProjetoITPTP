@@ -16,61 +16,39 @@ void adicionarWidgetsMeuFiltro(GtkWidget *container) {
 	gtk_container_add(GTK_CONTAINER(vbox), widgetMisturarCanais);
 }
 
-Imagem meuFiltro(Imagem origem,Imagem imagemFundo) {
-
-    if(img.h == imagemFundo.h && img.w == imagemFundo.w){
+Imagem meuFiltro(Imagem origem,Imagem fundo) {
     Imagem destino = alocarImagem(origem);
-	Imagem fundo = alocarImagem(imagemFundo);
-    //k e j variacoes do valor atribuido na imagem digital a cor deseja para o chorma key
-    k = 230;
-    j = 255;
-    for(int r = 0;r<10;r++){
-        for(int y = 0;y<10;y++){
-            for(int i = k;k<j;i++){
-                for(int a = 0;a<img.h;a++){
-                    for(int b = 0;b<img.w;b++){
-                        if(img.m[a][b][0] == y && img.m[a][b][1] == i && img.m[a][b][2] == r){
-                            img.m[a][b][0] = imagemFundo.m[a][b][0];
-                            img.m[a][b][1] = imagemFundo.m[a][b][1];
-                            img.m[a][b][2] = imagemFundo.m[a][b][2];
-                        }
-                    }
-
-
+    if(origem.h == fundo.h && origem.w == fundo.w){
+        printf("entrou 1\n");
+        for(int a = 0;a<origem.h;a++){
+            for(int b = 0;b<origem.w;b++){
+                if(origem.m[a][b][0] >= 0 && origem.m[a][b][0] <= 80  && origem.m[a][b][1] >= 100 && origem.m[a][b][1] <= 255  && origem.m[a][b][3] >= 0 && origem.m[a][b][3] <= 80){
+                    destino.m[a][b][0] = fundo.m[a][b][0];
+                    destino.m[a][b][1] = fundo.m[a][b][1];
+                    destino.m[a][b][2] = fundo.m[a][b][2];
                 }
             }
         }
     }
-}
-
-
-
-
-if(img.h>imagemFundo.h && img.m>imagemFundo.m){
-     int e = imagemFundo.w;
-     int p = imagemFundo.h;
-    Imagem destino = alocarImagem(origem);
-    Imagem imagemFundo = alocarImagem(imagemFundo);
-    Imagem alocarImagemDimensao(e, p, 3);
-    k = 230;
-    j = 255;
-    for(int r = 0;r<10;r++){
-        for(int y = 0;y<10;y++){
-            for(int i = k;k<j;i++){
-                for(int a = 0;a<img.h;a++){
-                    for(int b = 0;b<img.w;b++){
-                        if(img.m[a][b][0] == y && img.m[a][b][1] == i && img.m[a][b][2] == r){
-                            img.m[a][b][0] = imagemFundo.m[a][b][0];
-                            img.m[a][b][1] = imagemFundo.m[a][b][1];
-                            img.m[a][b][2] = imagemFundo.m[a][b][2];
-                        }
-                    }
-
-
+    if(origem.h>fundo.h || origem.m>fundo.m){
+        printf("entrou 2\n");
+        int e = origem.w;
+        int p = origem.h;
+        for(int a = 0;a<origem.h;a++){
+            for(int b = 0;b<origem.w;b++){
+                if(origem.m[a][b][0] >= 0 && origem.m[a][b][1] == 255 && origem.m[a][b][3] == 0){
+                    destino.m[a][b][0] = 255;
+                    destino.m[a][b][1] = 0;
+                    destino.m[a][b][2] = 0;
+                }else{
+                    destino.m[a][b][0] = origem.m[a][b][0];
+                    destino.m[a][b][1] = origem.m[a][b][1];
+                    destino.m[a][b][2] = origem.m[a][b][2];
                 }
             }
         }
     }
+    return destino;
 }
 
 
