@@ -19,27 +19,13 @@ void adicionarWidgetsMeuFiltro(GtkWidget *container) {
 Imagem meuFiltro(Imagem origem,Imagem fundo) {
     Imagem destino = alocarImagem(origem);
     if(origem.h == fundo.h && origem.w == fundo.w){
-        printf("entrou 1\n");
         for(int a = 0;a<origem.h;a++){
             for(int b = 0;b<origem.w;b++){
-                if(origem.m[a][b][0] >= 0 && origem.m[a][b][0] <= 80  && origem.m[a][b][1] >= 100 && origem.m[a][b][1] <= 255  && origem.m[a][b][3] >= 0 && origem.m[a][b][3] <= 80){
+                //if(origem.m[a][b][0] >= 0 && origem.m[a][b][0] <= 80  && origem.m[a][b][1] >= 100 && origem.m[a][b][1] <= 255  && origem.m[a][b][3] >= 0 && origem.m[a][b][3] <= 80){
+                if(origem.m[a][b][0] >= 0 && origem.m[a][b][1] == 255 && origem.m[a][b][3] >= 0){
                     destino.m[a][b][0] = fundo.m[a][b][0];
                     destino.m[a][b][1] = fundo.m[a][b][1];
                     destino.m[a][b][2] = fundo.m[a][b][2];
-                }
-            }
-        }
-    }
-    if(origem.h>fundo.h || origem.m>fundo.m){
-        printf("entrou 2\n");
-        int e = origem.w;
-        int p = origem.h;
-        for(int a = 0;a<origem.h;a++){
-            for(int b = 0;b<origem.w;b++){
-                if(origem.m[a][b][0] >= 0 && origem.m[a][b][1] == 255 && origem.m[a][b][3] == 0){
-                    destino.m[a][b][0] = 255;
-                    destino.m[a][b][1] = 0;
-                    destino.m[a][b][2] = 0;
                 }else{
                     destino.m[a][b][0] = origem.m[a][b][0];
                     destino.m[a][b][1] = origem.m[a][b][1];

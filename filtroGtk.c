@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib.h>
 #include <stdlib.h>
 #include <time.h>
@@ -66,8 +67,15 @@ void carregarImagemFundo(GtkWidget *widget, gpointer data) {
 		nomeArquivo = gtk_file_chooser_get_filename( GTK_FILE_CHOOSER(dialog) );
 		gtk_widget_destroy(dialog);
 	}
+	
 	gtk_image_set_from_file(GTK_IMAGE(imageFundo), nomeArquivo);
+	GdkPixbuf *pixbuf =	gtk_image_get_pixbuf(GTK_IMAGE(imageFundo));
+	printf("fundo %d %d\n", original.w, original.h);
 
+	pixbuf = gdk_pixbuf_scale_simple(pixbuf, original.w, original.h, GDK_INTERP_BILINEAR);
+	
+	gtk_image_set_from_pixbuf(GTK_IMAGE(imageFundo), pixbuf);
+	
 	gtk_label_set_text(GTK_LABEL(label1), "Imagem carregada");
 	imagemFundo = obterMatrizImagem(imageFundo);
 	printf("%d\n",imagemFundo.h);
