@@ -8,10 +8,10 @@
 #include "imagem.h"
 
 //declare aqui os seus widgets
-GtkWidget *widgetControleNivel;
-GtkWidget *widgetMisturarCanais;
+GtkWidget *widgetControleNivelH, *widgetControleNivelS, *widgetControleNivelV;
+GtkWidget *labelH, *labelS, *labelV;
 
-Imagem meuFiltro(Imagem origem, Imagem imagemFundo);
+Imagem meuFiltro(Imagem origem, Imagem imagemFundo, GdkRGBA cor);
 void inicializarWidgetsMeuFiltro();
 void adicionarWidgetsMeuFiltro(GtkWidget *container);
 
